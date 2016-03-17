@@ -60,7 +60,11 @@ function __bobthefish_hg_branch -S -d 'Get the current hg branch'
 end
 
 function __bobthefish_pretty_parent -S -a current_dir -d 'Print a parent directory, shortened to fit the prompt'
-  echo -n (dirname $current_dir) | sed -e 's#/private##' -e "s#^$HOME#~#" -e 's#/\(\.\{0,1\}[^/]\)\([^/]*\)#/\1#g' -e 's#/$##'
+  if [ "$theme_abbreviated_paths" = 'no' ]
+    echo -n (dirname $current_dir) | sed -e 's#/private##' -e "s#^$HOME#~#" -e 's#/$##'
+  else
+    echo -n (dirname $current_dir) | sed -e 's#/private##' -e "s#^$HOME#~#" -e 's#/\(\.\{0,1\}[^/]\)\([^/]*\)#/\1#g' -e 's#/$##'
+  end
 end
 
 function __bobthefish_git_project_dir -S -d 'Print the current git project base directory'
